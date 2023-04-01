@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../../redux/actions/productAction";
-import addProductData from "../../redux/thunk/products/addProductData";
+
+
 
 const AddProduct = () => {
-  const { register, handleSubmit } = useForm();
-  const dispatch = useDispatch();
+  const { register, handleSubmit, reset } = useForm();
+  const dispatch = useDispatch()
+  
 
+  
   const submit = (data) => {
     const product = {
       model: data.model,
@@ -21,10 +24,10 @@ const AddProduct = () => {
         data.keyFeature4,
       ],
       spec: [],
+      
     };
 
-  
-    dispatch(addProductData(product))
+   
   };
 
   return (
