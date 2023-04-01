@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../../components/ProductCard";
 import { useGetProductsQuery } from "../../features/api/apiSlice";
 
@@ -18,14 +18,32 @@ const Home = () => {
 //   .then(data=> setProducts(data))
 // }, [])
 
-  const activeClass = "text-white  bg-indigo-500 border-white";
+  
 
 const {data, isLoading, isSuccess, isError, isFetching, error} = useGetProductsQuery()
+// const {data, isLoading, isSuccess, isError, isFetching, error} = useGetProductsQuery(
+//   null, 
+//   {refetchOnMountOrArgChange: true}
+
+//   )
+
+const activeClass = "text-white  bg-indigo-500 border-white";
 
 
-const products = data?.data;
+
+const products = data;
+
+if(isLoading){
+  return <p>Loading...</p>
+}
+
+
+
+if(isError){
+  return <p>Something went wrong</p>
+}
  
-console.log(products)
+
   return (
     <div className='max-w-7xl gap-14 mx-auto my-10'>
       <div className='mb-10 flex justify-end gap-5'>

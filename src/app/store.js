@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from '@reduxjs/toolkit/query'
 import { productApi } from "../features/api/apiSlice";
 import cartSlice from "../features/cart/cartSlice";
 import filterSlice from "../features/feature/featureSlice";

@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { useGetProductsQuery, useRemoveProductMutation } from "../../features/api/apiSlice";
 
 
 
 
 const ProductList = () => {
-  const [products, setProducts] = useState([])
+  // const [products, setProducts] = useState([])
   const dispatch = useDispatch();
-  useEffect(()=>{
-    fetch("http://localhost:5000/products")
-    .then(res=>res.json())
-    .then(data=> setProducts(data))
-  }, [])
+  // useEffect(()=>{
+  //   fetch("http://localhost:5000/products")
+  //   .then(res=>res.json())
+  //   .then(data=> setProducts(data))
+  // }, [])
+
+  const {data, isLoading, isError} = useGetProductsQuery()
+  const [removeProduct] = useRemoveProductMutation()
+
+  const products = data;
+
+  if(isLoading){
+    return <p>Loading...</p>
+  }
+
+  
 
   return (
     <div class='flex flex-col justify-center items-center h-full w-full '>
@@ -72,7 +84,7 @@ const ProductList = () => {
                   </td>
                   <td class='p-2'>
                     <div class='flex justify-center'>
-                      <button onClick={()=> dispatch()}>
+                      <button onClick={()=> removeProduct(_id)}>
                         <svg
                           class='w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1'
                           fill='none'
